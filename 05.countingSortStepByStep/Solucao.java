@@ -21,8 +21,12 @@ public class Solucao{
 
         int[] ord = counting(seq, num);
 
-        System.out.println(Arrays.toString(ord));
-        
+        String retorno = "";
+        for(int i : ord){
+            retorno += i + " ";
+        }
+
+        System.out.println(retorno.trim());
 
         } catch(IOException ioe){}
 
@@ -30,17 +34,42 @@ public class Solucao{
 
     public static int[] counting(int[] v, int k){
         int[] freq = new int[k+1];
-        String r = "";
         for(int i = 0; i < v.length; i++){
             freq[v[i]]++;
-            r += freq;
-            print(v);
-            r = " ";
+            for(int b = 0; b < freq.length; b++){
+                System.out.print(freq[b]);
+                if(b < freq.length -1) System.out.print(" ");
+            }
+            System.out.println();
         }
-
+        
         for(int i = 1; i < k+1; i++){
             freq[i] += freq[i-1];
         }
+
+        String cumulativa = "Cumulativa do vetor de contagem - ";
+
+        for(int e : freq){
+            cumulativa += e + " ";
+        }
+
+        System.out.println(cumulativa.trim());
+
+        int[] shift = new int[freq.length];
+
+        for(int i = 0; i < freq.length; i++) shift[i] = freq[i];
+
+        for(int i = k; i > 0; i--){
+            shift[i] = shift[i-1];
+        }
+        shift[0] = 0;
+
+        String retorno = "";
+        for(int i : shift){
+            retorno += i + " ";
+        }
+
+        System.out.println(retorno.trim());
 
         int[] ord = new int[v.length];
         for(int i = v.length -1; i >= 0; i--){
@@ -50,14 +79,6 @@ public class Solucao{
 
         return ord;
 
-    }
-    
-    public static void print(int[] v){
-        String resultado = "";
-        for(int e : v){
-            resultado += e + " ";
-        }
-        System.out.println(resultado);
     }
 
 }
